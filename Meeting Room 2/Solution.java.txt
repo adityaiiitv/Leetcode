@@ -1,0 +1,82 @@
+import java.io.*;
+import java.util.*;
+
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
+class Solution {
+  public static void main(String[] args) {
+    ArrayList<ArrayList<Integer>> lol = new ArrayList<ArrayList<Integer>>();
+    ArrayList<Integer> l = new ArrayList<Integer>();
+    l.add(2);
+    l.add(15);
+    lol.add(l);
+    l = new ArrayList<Integer>();
+    l.add(36);
+    l.add(45);
+    lol.add(l);
+    l = new ArrayList<Integer>();
+    l.add(9);
+    l.add(29);
+    lol.add(l);
+    l = new ArrayList<Integer>();
+    l.add(16);
+    l.add(23);
+    lol.add(l);
+    l = new ArrayList<Integer>();
+    l.add(4);
+    l.add(9);
+    lol.add(l);
+    System.out.println(meetingRooms(lol));
+  }
+  
+  public static int meetingRooms(ArrayList<ArrayList<Integer>> l)
+  {
+    if(l.size()==0)
+    {
+      return 0;
+    }
+    int count = 1;
+    Collections.sort(l, new Comparator<ArrayList<Integer>>() {
+        @Override
+        public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
+            try {
+                return o1.get(0).compareTo(o2.get(0));
+            } catch (NullPointerException e) {
+                return 0;
+            }
+        }
+    });
+    PriorityQueue<Integer> pq = new PriorityQueue<>();
+    pq.offer(l.get(0).get(1));
+    for(int i = 1; i < l.size(); i++){
+      int head = pq.peek();
+      if(l.get(i).get(0) >= head){
+        pq.poll();
+      }
+      else
+        count++;
+      pq.offer(l.get(i).get(1));
+    }
+    return count;
+  }
+}
+
+
+/* 
+Your previous Python 2 content is preserved below:
+
+# This is a sandbox to experiment with CoderPad's execution capabilities.
+# It's a temporary, throw-away session only visible to you.
+
+def say_hello():
+    print 'Hello, World'
+
+for i in xrange(5):
+    say_hello()
+
+ */
