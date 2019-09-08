@@ -1,0 +1,17 @@
+public class Solution {
+    public IList<int> FindDuplicates(int[] nums) {
+        List<int> ans = new List<int>();
+        for(int i=0;i<nums.Length;i++)
+        {
+            int t = Math.Abs(nums[i])-1;
+            if(nums[t]<0)
+            {
+                ans.Add(t+1);
+            }
+            else{
+                nums[t] = -nums[t];
+            }
+        }
+        return ans;
+    }
+}
